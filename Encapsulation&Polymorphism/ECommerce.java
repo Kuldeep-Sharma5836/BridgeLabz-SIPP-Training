@@ -42,12 +42,12 @@ class Electronics extends Product implements Taxable {
 
     @Override
     public double calculateDiscount() {
-        return getPrice() * 0.10; // 10% discount
+        return getPrice() * 0.10; 
     }
 
     @Override
     public double calculateTax() {
-        return getPrice() * 0.18; // 18% GST
+        return getPrice() * 0.18; 
     }
 
     @Override
@@ -63,12 +63,12 @@ class Clothing extends Product implements Taxable {
 
     @Override
     public double calculateDiscount() {
-        return getPrice() * 0.15; // 15% discount
+        return getPrice() * 0.15; 
     }
 
     @Override
     public double calculateTax() {
-        return getPrice() * 0.05; // 5% GST
+        return getPrice() * 0.05; 
     }
 
     @Override
@@ -84,7 +84,7 @@ class Groceries extends Product {
 
     @Override
     public double calculateDiscount() {
-        return getPrice() * 0.05; // 5% discount
+        return getPrice() * 0.05; 
     }
 }
 
