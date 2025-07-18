@@ -45,7 +45,7 @@ class EventTicketingSystem {
     }
 }
 
-public class Main {
+public class Event {
     public static void main(String[] args) {
         EventTicketingSystem system = new EventTicketingSystem();
 
