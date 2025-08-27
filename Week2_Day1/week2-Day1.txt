@@ -1,0 +1,68 @@
+CLASS User (Abstract)
+    ATTRIBUTES:
+        username
+        password
+
+    METHOD authenticate(u, p):
+        RETURN (username == u AND password == p)
+
+    ABSTRACT METHOD login(u, p)
+
+
+CLASS Student EXTENDS User
+    ATTRIBUTES:
+        registered
+        enrolled
+
+    METHOD login(u, p):
+        RETURN authenticate(u, p) AND registered AND enrolled
+
+    METHOD viewAvailableExams():
+        RETURN "List of Exams"
+
+    METHOD viewProgress():
+        RETURN "Progress Details"
+
+
+CLASS Admin EXTENDS User
+    ATTRIBUTES:
+        staffVerified
+        hasAdminPrivileges
+
+    METHOD login(u, p):
+        RETURN authenticate(u, p) AND staffVerified AND hasAdminPrivileges
+
+    METHOD manageTools():
+        RETURN "Admin Tools (Create Exam, Manage Questions, Review Performance)"
+
+
+CLASS Session
+    ATTRIBUTE:
+        user
+
+    METHOD open(username, password):
+        IF user.login(username, password) IS TRUE:
+            IF user IS Student:
+                SHOW "Student Dashboard"
+                SHOW user.viewAvailableExams()
+                SHOW user.viewProgress()
+            ELSE IF user IS Admin:
+                SHOW "Admin Dashboard"
+                SHOW user.manageTools()
+        ELSE:
+            SHOW "Access Denied"
+
+
+MAIN FUNCTION
+    CREATE Student john(username="Rohit", password="pass123", registered=TRUE, enrolled=TRUE)
+    CREATE Admin superAdmin(username="admin1", password="admin@123", staffVerified=TRUE, hasAdminPrivileges=TRUE)
+
+    CREATE Session for Rohit
+    CALL session.open("Rohit", "pass123")
+
+    CREATE Session for superAdmin
+    CALL session.open("admin1", "admin@123")
+
+    CREATE Student amy(username="amit", password="pw", registered=TRUE, enrolled=FALSE)
+    CREATE Session for amit
+    CALL session.open("amit", "pw")
