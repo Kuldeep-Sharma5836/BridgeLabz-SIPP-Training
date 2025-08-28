@@ -1,0 +1,74 @@
+CLASS UPI
+    PRIVATE upiId
+    PRIVATE amount
+    PRIVATE merchantName
+
+    METHOD constructor(upiId, amount, merchantName)
+        SET this.upiId = upiId
+        SET this.amount = amount
+        SET this.merchantName = merchantName
+
+    METHOD getDetails()
+        RETURN "Payment of ₹" + amount + " via UPI successful for " + merchantName
+END CLASS
+
+
+CLASS Card
+    PRIVATE cardNumber
+    PRIVATE cvv
+    PRIVATE expiryDate
+    PRIVATE amount
+    PRIVATE merchantName
+
+    METHOD constructor(cardNumber, cvv, expiryDate, amount, merchantName)
+        SET this.cardNumber = cardNumber
+        SET this.cvv = cvv
+        SET this.expiryDate = expiryDate
+        SET this.amount = amount
+        SET this.merchantName = merchantName
+
+    METHOD getDetails()
+        last4 = last 4 digits of cardNumber
+        RETURN "Payment of ₹" + amount + " via Card ending " + last4 + " successful for " + merchantName
+END CLASS
+
+
+CLASS NetBanking
+    PRIVATE bankName
+    PRIVATE accountNumber
+    PRIVATE amount
+    PRIVATE merchantName
+
+    METHOD constructor(bankName, accountNumber, amount, merchantName)
+        SET this.bankName = bankName
+        SET this.accountNumber = accountNumber
+        SET this.amount = amount
+        SET this.merchantName = merchantName
+
+    METHOD getDetails()
+        RETURN "Payment of ₹" + amount + " via NetBanking (" + bankName + ") successful for " + merchantName
+END CLASS
+
+
+CLASS Transaction<T>
+    PRIVATE paymentMethod (of type T)
+
+    METHOD constructor(paymentMethod)
+        SET this.paymentMethod = paymentMethod
+
+    METHOD processPayment()
+        PRINT "Processing Payment..."
+        PRINT paymentMethod.getDetails()
+END CLASS
+
+
+MAIN PROGRAM
+    upiTxn = new Transaction<UPI>(new UPI("ramesh@upi", 1200, "Amazon"))
+    upiTxn.processPayment()
+
+    cardTxn = new Transaction<Card>(new Card("1234-5678-9876-5432", "123", "12/27", 5000, "MakeMyTrip"))
+    cardTxn.processPayment()
+
+    netBankTxn = new Transaction<NetBanking>(new NetBanking("HDFC", "00112233", 8000, "Salary"))
+    netBankTxn.processPayment()
+END MAIN

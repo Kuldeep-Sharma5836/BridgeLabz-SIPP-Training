@@ -1,0 +1,32 @@
+CLASS SurveyResponse
+    ATTRIBUTES
+        restaurantName
+        rating
+
+CLASS SurveyReport
+    METHODS
+        generateReport(responses)
+            averageMap = group responses BY restaurantName 
+                         AND compute average of rating
+            DISPLAY "Average Ratings:"
+            FOR EACH entry IN averageMap
+                DISPLAY entry.key + " → " + entry.value
+
+            highestRestaurant = restaurant with maximum average rating
+            lowestRestaurant = restaurant with minimum average rating
+
+            DISPLAY "Best Performing: " + highestRestaurant
+            DISPLAY "Needs Improvement: " + lowestRestaurant
+
+MAIN PROGRAM
+    responses = new List
+    ADD (PizzaHut, 4)
+    ADD (PizzaHut, 5)
+    ADD (KFC, 3)
+    ADD (KFC, 4)
+    ADD (Subway, 5)
+    ADD (Subway, 4)
+    ADD (Subway, 5)
+
+    report = new SurveyReport
+    report.generateReport(responses)

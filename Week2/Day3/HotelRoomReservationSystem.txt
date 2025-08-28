@@ -1,0 +1,62 @@
+CLASS Room
+    PRIVATE roomNumber
+    PRIVATE customerName
+    PRIVATE daysStayed
+
+    METHOD constructor(roomNumber, customerName, daysStayed)
+        SET this.roomNumber = roomNumber
+        SET this.customerName = customerName
+        SET this.daysStayed = daysStayed
+
+    METHOD getCustomerName()
+        RETURN customerName
+
+    METHOD getDaysStayed()
+        RETURN daysStayed
+
+    METHOD calculateBill()
+        RETURN 0
+END CLASS
+
+
+CLASS DeluxeRoom EXTENDS Room
+    PRIVATE ratePerNight = 3000
+
+    METHOD constructor(roomNumber, customerName, daysStayed)
+        CALL super(roomNumber, customerName, daysStayed)
+
+    METHOD calculateBill()
+        RETURN getDaysStayed() * ratePerNight
+END CLASS
+
+
+CLASS SuiteRoom EXTENDS Room
+    PRIVATE ratePerNight = 5000
+
+    METHOD constructor(roomNumber, customerName, daysStayed)
+        CALL super(roomNumber, customerName, daysStayed)
+
+    METHOD calculateBill()
+        RETURN getDaysStayed() * ratePerNight
+END CLASS
+
+
+CLASS HotelSystem
+    METHOD printInvoice(roomType, customerName, nights, totalBill)
+        PRINT "Room Type: " + roomType
+        PRINT "Customer: " + customerName
+        PRINT "Nights Stayed: " + nights
+        PRINT "Total Bill: ₹" + totalBill
+END CLASS
+
+
+MAIN PROGRAM
+    CREATE room1 = new DeluxeRoom(101, "Ravi", 3)
+    total1 = room1.calculateBill()
+    CREATE system = new HotelSystem()
+    system.printInvoice("Deluxe", room1.getCustomerName(), room1.getDaysStayed(), total1)
+
+    CREATE room2 = new SuiteRoom(202, "Anita", 2)
+    total2 = room2.calculateBill()
+    system.printInvoice("Suite", room2.getCustomerName(), room2.getDaysStayed(), total2)
+END MAIN

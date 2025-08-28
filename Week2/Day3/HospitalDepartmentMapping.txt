@@ -1,0 +1,60 @@
+CLASS Doctor
+    PRIVATE name
+    PRIVATE specialization
+    PRIVATE experienceYears
+
+    METHOD constructor(name, specialization, experienceYears)
+        SET this.name = name
+        SET this.specialization = specialization
+        SET this.experienceYears = experienceYears
+
+    METHOD getName()
+        RETURN name
+
+    METHOD getSpecialization()
+        RETURN specialization
+
+    METHOD getExperienceYears()
+        RETURN experienceYears
+
+    METHOD toString()
+        RETURN name + " - " + specialization + " (" + experienceYears + " years)"
+END CLASS
+
+
+CLASS HospitalDirectory
+    PRIVATE departmentMap (Map<String, List<Doctor>>)
+
+    METHOD constructor()
+        INITIALIZE departmentMap as empty map
+
+    METHOD addDoctor(department, doctor)
+        IF department NOT IN departmentMap
+            ADD new entry: department → empty list
+        ADD doctor to departmentMap[department]
+
+    METHOD getDoctorsByDepartment(department)
+        IF department IN departmentMap
+            RETURN departmentMap[department]
+        ELSE
+            RETURN empty list
+END CLASS
+
+
+MAIN PROGRAM
+    CREATE hospital = new HospitalDirectory()
+
+    hospital.addDoctor("Cardiology", new Doctor("Dr. Mehta", "Cardiologist", 15))
+    hospital.addDoctor("Cardiology", new Doctor("Dr. Kapoor", "Cardiologist", 10))
+    hospital.addDoctor("Neurology", new Doctor("Dr. Sharma", "Neurologist", 10))
+    hospital.addDoctor("Neurology", new Doctor("Dr. Das", "Neurologist", 8))
+    hospital.addDoctor("Pediatrics", new Doctor("Dr. Ritu", "Pediatrician", 12))
+    hospital.addDoctor("Pediatrics", new Doctor("Dr. Anjali", "Pediatrician", 7))
+
+    queryDepartment = "Neurology"
+    doctors = hospital.getDoctorsByDepartment(queryDepartment)
+
+    PRINT "Doctors in " + queryDepartment + ":"
+    FOR each doctor in doctors
+        PRINT doctor.toString()
+END MAIN

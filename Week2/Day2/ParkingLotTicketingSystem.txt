@@ -1,0 +1,61 @@
+CLASS Vehicle
+    ATTRIBUTES
+        vehicleNumber
+        entryTime
+    METHODS
+        calculateFee(exitTime)
+            RETURN 0
+
+CLASS Car EXTENDS Vehicle
+    METHODS
+        calculateFee(exitTime)
+            hours = ceil((exitTime - entryTime) in hours)
+            fee = 50 + (hours - 1) * 30
+            RETURN fee
+
+CLASS Bike EXTENDS Vehicle
+    METHODS
+        calculateFee(exitTime)
+            hours = ceil((exitTime - entryTime) in hours)
+            fee = 20 + (hours - 1) * 10
+            RETURN fee
+
+CLASS Truck EXTENDS Vehicle
+    METHODS
+        calculateFee(exitTime)
+            hours = ceil((exitTime - entryTime) in hours)
+            fee = 100 + (hours - 1) * 50
+            RETURN fee
+
+CLASS ParkingLot
+    ATTRIBUTES
+        vehicles
+    METHODS
+        vehicleEntry(type, number, entryTime)
+            IF type = "Car" THEN
+                v = new Car
+            ELSE IF type = "Bike" THEN
+                v = new Bike
+            ELSE IF type = "Truck" THEN
+                v = new Truck
+            v.vehicleNumber = number
+            v.entryTime = entryTime
+            ADD v TO vehicles
+        vehicleExit(number, exitTime)
+            FIND v IN vehicles WHERE v.vehicleNumber = number
+            IF v EXISTS THEN
+                fee = v.calculateFee(exitTime)
+                DISPLAY "Ticket: " + v.vehicleNumber + " | Type: " + v.className + " | Fee: ₹" + fee
+                REMOVE v FROM vehicles
+            ELSE
+                DISPLAY "Vehicle not found"
+
+MAIN PROGRAM
+    CREATE lot AS ParkingLot
+    lot.vehicleEntry("Car", "KA05AB1234", 10:00)
+    lot.vehicleEntry("Bike", "KA05XY7890", 11:15)
+    lot.vehicleEntry("Truck", "KA09TR5566", 09:30)
+
+    lot.vehicleExit("KA05AB1234", 13:30)
+    lot.vehicleExit("KA05XY7890", 12:00)
+    lot.vehicleExit("KA09TR5566", 14:00)

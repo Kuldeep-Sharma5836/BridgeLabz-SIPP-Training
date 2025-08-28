@@ -1,0 +1,68 @@
+CLASS Student
+    PRIVATE name
+    PRIVATE marks
+
+    METHOD constructor(name, marks)
+        SET this.name = name
+        SET this.marks = marks
+
+    METHOD getName()
+        RETURN name
+
+    METHOD getMarks()
+        RETURN marks
+END CLASS
+
+
+FUNCTION mergeSort(studentList)
+    IF length(studentList) <= 1
+        RETURN studentList
+
+    SET mid = length(studentList) / 2
+    leftHalf = mergeSort(studentList[0..mid-1])
+    rightHalf = mergeSort(studentList[mid..end])
+
+    RETURN merge(leftHalf, rightHalf)
+END FUNCTION
+
+
+FUNCTION merge(left, right)
+    INITIALIZE result as empty list
+
+    WHILE left NOT EMPTY AND right NOT EMPTY
+        IF left[0].marks > right[0].marks
+            ADD left[0] to result
+            REMOVE left[0]
+        ELSE IF left[0].marks < right[0].marks
+            ADD right[0] to result
+            REMOVE right[0]
+        ELSE
+            IF left[0].name < right[0].name
+                ADD left[0] to result
+                REMOVE left[0]
+            ELSE
+                ADD right[0] to result
+                REMOVE right[0]
+
+    ADD remaining elements from left to result
+    ADD remaining elements from right to result
+
+    RETURN result
+END FUNCTION
+
+
+MAIN PROGRAM
+    students = [
+        new Student("Amit", 92),
+        new Student("Bhavna", 92),
+        new Student("Kiran", 85),
+        new Student("Dinesh", 78),
+        new Student("Charu", 92)
+    ]
+
+    sortedList = mergeSort(students)
+
+    PRINT "Final Rank List:"
+    FOR each student in sortedList
+        PRINT student.getName() + " - " + student.getMarks()
+END MAIN

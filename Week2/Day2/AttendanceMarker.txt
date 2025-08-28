@@ -1,0 +1,37 @@
+CLASS AttendanceSystem
+    ATTRIBUTES
+        attendance[30][30]
+        totalStudents = 30
+        totalDays = 30
+    METHODS
+        markAttendance(studentId, day, status)
+            attendance[studentId][day] = status
+        dailySummary(day)
+            presentCount = 0
+            FOR student = 0 TO totalStudents-1
+                IF attendance[student][day] = 1 THEN
+                    presentCount = presentCount + 1
+            DISPLAY "Day " + (day+1) + " → " + presentCount + " students present"
+        monthlySummary(studentId)
+            presentCount = 0
+            FOR day = 0 TO totalDays-1
+                IF attendance[studentId][day] = 1 THEN
+                    presentCount = presentCount + 1
+            DISPLAY "Student " + (studentId+1) + " attended " + presentCount + " days"
+        defaulterList()
+            FOR student = 0 TO totalStudents-1
+                presentCount = 0
+                FOR day = 0 TO totalDays-1
+                    IF attendance[student][day] = 1 THEN
+                        presentCount = presentCount + 1
+                IF presentCount < (0.75 * totalDays) THEN
+                    DISPLAY "Student " + (student+1) + " is a defaulter with " + presentCount + " days"
+
+MAIN PROGRAM
+    CREATE system AS AttendanceSystem
+    system.markAttendance(0, 0, 1)     // Student 1 present Day 1
+    system.markAttendance(2, 0, 0)     // Student 3 absent Day 1
+    system.markAttendance(4, 9, 1)     // Student 5 present Day 10
+    system.dailySummary(9)
+    system.monthlySummary(4)
+    system.defaulterList()

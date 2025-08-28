@@ -1,0 +1,30 @@
+FUNCTION binarySearch(catalog, target)
+    SET left = 0
+    SET right = length(catalog) - 1
+
+    WHILE left <= right
+        SET mid = (left + right) / 2
+        IF catalog[mid] == target
+            RETURN mid
+        ELSE IF catalog[mid] < target
+            SET left = mid + 1
+        ELSE
+            SET right = mid - 1
+    END WHILE
+
+    RETURN -1
+END FUNCTION
+
+
+MAIN PROGRAM
+    catalog = ["AirPods", "Backpack", "Camera", "Laptop", "Shoes", "Smartphone", "Watch"]
+
+    INPUT customerName, productToSearch
+
+    index = binarySearch(catalog, productToSearch)
+
+    IF index != -1
+        PRINT productToSearch + " available in catalog"
+    ELSE
+        PRINT "Sorry, " + productToSearch + " is currently out of stock."
+END MAIN
