@@ -1,0 +1,20 @@
+Class Node
+    stopName
+    next
+
+Class Route
+    head
+    Method insert(stopName, position)
+    Method delete(stopName)
+    Method search(stopName)
+
+Main
+    create Route r
+    r.insert("Depot")
+    r.insert("Main Street")
+    r.insert("City Mall")
+    r.insert("Hospital")
+    r.insert("Airport")
+    r.insert("University", after "City Mall")
+    r.delete("Hospital")
+    r.search("Airport")

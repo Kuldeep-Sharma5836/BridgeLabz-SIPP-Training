@@ -1,0 +1,30 @@
+Class Ticket
+    movieName
+    seatNumber
+    price
+    status
+
+Class Theatre
+    movieList
+    seatMap
+    Method issueTicket(customer, movie, seat)
+        if seat available
+            create Ticket
+            mark seat booked
+            return Ticket
+    Method cancelTicket(ticket)
+        mark seat free
+        update ticket status
+
+Class Customer
+    name
+    Method bookTicket(theatre, movie, seat)
+        ticket = theatre.issueTicket(self, movie, seat)
+    Method cancelTicket(theatre, ticket)
+        theatre.cancelTicket(ticket)
+
+Main
+    create Customer c
+    create Theatre t
+    c.bookTicket(t, "Avengers", "A12")
+    c.cancelTicket(t, ticket)

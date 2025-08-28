@@ -1,0 +1,12 @@
+text = input paragraph
+words = split text into lowercase words without punctuation
+map = empty Map
+
+for each word in words
+    if map contains word
+        map[word]++
+    else
+        map[word] = 1
+
+sort map by frequency
+print map

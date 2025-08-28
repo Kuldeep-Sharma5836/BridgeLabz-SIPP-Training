@@ -1,0 +1,18 @@
+tasks = LinkedHashMap
+
+Method addTask(description)
+    autoID++
+    tasks.put(autoID, description)
+
+Method removeTask(id)
+    tasks.remove(id)
+
+Method viewTasks()
+    print tasks in order
+
+Main
+    addTask("Check emails")
+    addTask("Prepare sales report")
+    addTask("Call client")
+    removeTask(2)
+    viewTasks()

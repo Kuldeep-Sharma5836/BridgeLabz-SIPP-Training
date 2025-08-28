@@ -1,0 +1,27 @@
+Class User
+    username
+    password
+    Method login()
+
+Class Student inherits User
+    Method login()
+        if student registered and enrolled
+            print "Access to exams"
+        else
+            print "Login failed"
+
+Class Admin inherits User
+    Method login()
+        if admin credentials valid
+            print "Access to exam management"
+        else
+            print "Login failed"
+
+Main
+    create Student s
+    set username, password
+    s.login()
+
+    create Admin a
+    set username, password
+    a.login()
